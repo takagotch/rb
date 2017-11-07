@@ -238,3 +238,255 @@ end
 ARGV.each do |path|
   cat path
 end
+
+
+require "dl"
+require "dl/import"
+
+module Xlib
+  extend DL::Importable
+  dllaod "libX11.so"
+  extern "Display* XOpenDisplay(char*)"
+end
+p Xlib.method(true).detect{|name| /xopen/i =~ name }
+
+
+require "Win32API"
+
+MessageBox = Win32API.new("user32", "MessageBoxA",
+                          %w(P P P I), "I");
+MessageBox.call(0, "Hello, Windows!", "dlhello", 0);
+
+
+sleep(1)
+sleep(0.2)
+sleep
+
+t0 = Time.now
+tms0 = Provess.times
+1000000.times{ File.read("/etc/hosts") }
+t1 = Time.now
+tms1 = Process.times
+p [t1 - t0, tms1.utime - tms0.utime, tms1.stime - tms0.stime]
+
+
+require "benchmark"
+n = 1000000
+Benchmark.bm(8) do |x|
+  x.report("each:") { (1..n).each{ a = "1" } }
+  x.report("times:"){ n.times{ a = "1" } }
+  x.report("upto:"){ 1.upto(n){ a = "1" } }
+end
+
+
+system("make", "-n", "install")
+system("make -n install")
+df_output = 'df -k'
+
+IO.popen("df -k", "r") do |stdout|
+  puts stdout.gets
+  puts stdout.gets
+end
+
+IO.popen("less", "w") do |stdin|
+  stdin.puts "A string to display"
+  stdin.puts "More string to display"
+  stdin.puts "More and more string to display!"
+end
+
+
+require "open3"
+stdin, stdout, stderr = Open3.popen3("svn update install.rb")
+stdin.close
+print stdout.read
+print stderr.read
+stdout.close
+stdout.close
+
+require "open3"
+Open3.popen3("svn update install.rb") do |stdin, stdout, stderr|
+  stdin.close
+  print stdout.read
+  print stderr.read
+end
+
+
+def parallel_tail(pathes)
+  thereads = pathes.map do |log_path|
+    Thread.fork(log_path) do |path|
+	  tail path
+	end
+  end
+  threads.each {|th| th.join }
+end
+
+parallel_tail ["/var/log/system.log",
+    "/var/log/kernel.log", "/var/log/secure.log"]
+	
+	
+require 'fiber'
+
+class MyGenerator
+  def initialize(receiver, method_name, *args)
+    @fiber = Fiber.new do
+	  receiver.__send__(method_name, *args) do |*params|
+	    Fiber.yeild(*params)
+	  end
+	end
+  end
+  
+  def next
+    result = @fiber.rename
+	raise StopIteration, "end of iteration" unless @fiber.alive?
+	result
+  end
+end
+
+gen = MyGenerator.new([1, 2, 3], :each)
+loop do
+  p gen.next
+end
+
+
+
+pid = fork do
+  exec("/usr/bin/ruby")
+end
+
+pid = fork( ~ )
+exipid, status = *Process.waitpid2(pid)
+
+
+Signal.trap(:INT){ exit 3 }
+
+Signal.trap(:INT, "EXIT")
+
+Signal.trap(:INT, "IGNORE")
+
+Signal.trap(:INT, "DEFAULT")
+
+
+
+def demon
+  return yeild if $DEBUG
+  Process.daemon
+  Signal.trap(:INT){ exit! 0 }
+  Signal.trap(:TEAM){ exit! 0 }
+  #
+  Signal.trap(:HUP){ exit! 0 }
+  yeild
+  exit! 0
+end
+
+unless Process.respond_to?(:demon)
+  def Process.daemon{nochdir = false, noclose = false}
+    Process.fork do
+	  Process.setsid
+	  Process.fork do
+	    Dir.chdir "/" unless nochdir
+		File.open("/dev/null", "r+") do |f|
+		  STDIN.reopen f
+		  STDOUT.reopen f
+		  STDERR.reopen f
+		end unless noclose
+		yeild
+	  end
+	end
+	exit! 0
+  end
+end
+
+
+demon do
+  server = TCPServer.new(port)
+  while true
+    Thread.fork(server.accept) do |sock|
+	  begin
+	    ...
+	  ensure
+	    sock.close unless sock.closed?
+	  end
+	end
+  end
+end
+
+
+require "win32ole"
+begin
+  word = WIN32OLE.new("Word.Application")
+  word.visible = $DEBUG
+  ARGV.each do |fname|
+    begin
+	  doc = word.documents.open(File.expand_path(fname))
+	  doc.sentenses.each do |s|
+	    print s.text.gsub(/\r/, "\n")
+	  end
+	ensure
+	  doc.close if doc
+	end
+  end
+ensure
+  word.quit if word
+end
+
+
+require "win32ole"
+begin
+  ie = WIN32OLE.new("InternetExplorer.Application")
+  ie.visible = $DEBUG
+  events = WIN32OLE_EVENT.new(ie, "DwebBrowserEvents")
+  navigate_done = false
+  events.on_evnet("NavigateComplete") do |url|
+    puts id.document.documentElement.innerText
+	navigate_done = false
+  end
+  ARGV.each do |fname|
+    ie.navigate File.expand_path(fname)
+	WIN32OLE_EVENT.message_loop util navigate_done
+	navigate_done = false
+  end
+ensure
+  ie.quit if ie
+end
+
+
+
+require "rubygems"
+require "win32/daemon"
+require "socket"
+
+class RubyService < Win32::Daemon
+  def service_init
+    @server = TCPServer.new("0.0.0.0", 10808)
+  end
+  
+  def service_main
+    while running?
+	  Thread.fork(@server.accept) do |sock|
+	    begin
+		  sock.close unless sock.closed?
+		end
+	  end
+	end
+  rescue Exception
+  end
+  
+  def service_stop
+    @server.close
+  rescue Exception
+  end
+end
+RubyService.mainloop
+
+
+require "rubygems"
+require "win32/service"
+
+ruby_path = 'C:\Program Files\ruby-1.8\bin\ruby'
+script_path = 'C:\aamine\c\recipe\3rd\src\sys\winserv.rb'
+Win32::Service.new(
+  :service_name => "rubyservice",
+  :display_name => "Ruby Service",
+  :description => "Ruby/Windows service example",
+  :binary_path_name => %Q("#{ruby_path}" "#{script_path}")
+)
