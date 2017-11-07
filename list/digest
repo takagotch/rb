@@ -1,0 +1,44 @@
+== Location
+* ftp://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.1-p0.tar.bz2
+  Size: 7190171 bytes
+  MD5:  00000000000000000000000
+  SHA256: xxxxxxxxxxxxxxxxxx
+  
+>>require "digest/md5"
+=>true
+>>Digest::MD5.hexdigest(File.binread("ruby-1.9.1-p0.tar.bz2"))
+=>"000000000000000000000"
+
+>>require "digest/md5"
+=>true
+>>Digest::MD5.hexdigest(file.binread("ruby-1.9.1-p0.tar.bz2"))
+=>"xxxxxxxxxxxxxxxxxx"
+
+
+require "digest/sha1"
+def image_registry(raw_image_data)
+  img_sha1 = Digest::SHA1.hexdigest(raw_image_data)
+  @image_registry[img_sha1] ||= build_image_obj(raw_image_data)
+end
+
+
+
+#password=(pass)
+class User < ActiveRecord::Base
+
+  def password=(pass)
+  salt = [Array.new(6){rand(256).chr}.join].pack("m").chomp
+  self.password_salt, self.password_hash =
+    salt, Digest::SHA256.hexdigest(pass + salt)
+  end
+
+  def self.authenticate(username,password)
+    user = find_by_username(username)
+	hash = Digest::SHA256.hexdigest(password + user.password_salt)
+	if user.blank? || hash != user.password_hash
+	  raise AuthenticationError, "Username or password invalid"
+    end
+
+	user
+  end
+end
