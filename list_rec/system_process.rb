@@ -1,133 +1,240 @@
-put Time.now
+>ruby setup.rb
+>gem install httpclient
 
-require "date"
-d = Date.today
-puts date
-d = DateTime.now
-puts date
 
-puts Time.local(2017)
-puts Time.local(2017, 6, 7)
-puts Time.local(2017, 6, 7, 11, 12, 13)
-puts Time.utc(2017)
-puts Time.utc(2017, 6, 7)
-puts Time.utc(2017, 6, 7, 11, 12, 13)
+require "rubygems"
+require "httpclient"
+#..
 
-require "date"
-puts Date.new(2017)
-puts Date.new(2017, 6, 7)
-puts DateTime.new(2017, 6, 7)
-puts DateTime.new(2017, 6, 7, 11, 12, 13)
-puts DateTime.new(2017, 6, 7, 11, 12, 13, 0)
+#!/usr/bin/ruby
+#!/usr/bin/ruby -Ke
+>ruby script.rb
+#!/usr/bin/env ruby
 
-t = Time.now
-t.utc
-puts today
-t.localtime
-puts t
-t = Time.now
-puts t.getutc
-puts t
+#!/bin/sh
+exec ruby -S -x "$0" ${@+"$@"}
+#!ruby
+ ...
 
-require "date"
-d1 = DateTime.now
-puts d2.offset
-puts d1
-d2 = d1.new_offset(Rational(3, 24))
-puts d2
+#!ruby
 
-t = Time.now
-puts t
-p t.year
-p t.month
-p t.day
-p t.hour
+@echo off
+"'C:\Program Files\ruby\bin\ruby" -x "C:/some/prog.bat" %*
+goto endofruby
+#!ruby
+  ...
+__END__
+:endofruby
 
-t = Time.now
-puts t
-p t.to_i
 
-p Time.now.to_f
+>env RUBYOPT=-d racc
+>env RUBYOPT="-d -Ke" racc
 
-t = Time.at(1275855068)
-puts t
-t = Time.at(0)
-t.utc
-puts t
+\>set RUBYOPT=-d
+\>racc
 
-puts Time.at(-123123)
-puts Time.at(-2 ** 31)
+\>ruby -S -d racc
 
->ruby -ve 'p Time.at(0xffffffffffff)'
+racc
+/opt/ruby-1.8.7/bin/ruby -S racc
+/opt/ruby-1.9.2/bin/ruby -S racc
 
-t1 = Time.at(10000)
-t2 = Time.at(10010)
-p t2 - t1
+\>ruby -e 'p ARGV' a b c
+\>ruby -e 'puts ARGV' *.bat
+\>ruby -e 'puts ARGV' "Documents add Settings/A*"
+\>ruby -e 'puts ARGV' "Documents add Settings/A*"
+\>ruby -e 'puts ARGV' 'Documents and Settings/A*'
+\>ruby -e 'puts ARGV' 'Documents and Settings/A*'
 
-t1 = Time.now
-t2 = t1 + (60 * 60 *24 *10)
-puts t1
-puts t2
 
-require "date"
-d1 = Date.new(2017, 1, 1)
-d2 = Date.new(2017, 1, 4)
-p d2 - d1
+require "optparse"
 
-require "time"
-puts Time.parse("MOn JUn 14 hh:mm:ss JST 2017")
-
-require "time"
-puts Time.parse("70-01-02")
-
-t = Time.now
-p t.to_s
-p t.strftime("%a %b %d %X %z %Y")
-p t.strftime("%Y/%m/%d-%X")
-p t.strftime("%Y%m%d%H%M%S")
-
-require "time"
-t = Time.now
-p t.rfc2822
-p t.httpdate
-p t.iso8601
-p t.xmlschema
-
-t = Time.now
-p t.strftime("%a %b %d %X %z %Y")
-
-require "date"
-d = DateTime.now
-p d.strftime("%a %b %d %X %z %Y")
-
-t = Time.now
-puts t
-p t.yday
-
-t = Time.now
-puts t
-p((t.yday -1) / 7)
-
-t = Time.now
-puts t
-p t.strftime("%U").to_i
-
-require "date"
-p Date.new(2017).leap?
-
-def leap>(year)
-  ((year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0)
+parser = OptionParser.new
+parser.banner = 
+   "Usage: #{File.basename($0, '.*')} [options] FILE..."
+parser.on("-a", "--all", "display data for all users.") do
+  puts "set: --all"
 end
-p leap?(2017)
-p leap?(2017)
-
-require "date"
-def days_of_month(year, month)
-  Date.new(year, month, -1).day
+parser.on("-u", "--user=[USER]", String,
+          "display data for the user USER.") do |arg|
+  puts "set: --user, arg=#{arg.inspect}"
 end
-p day_of_month(2017, 1)
+parser.on("-f", "--format=FMT", String,
+          "display data in the FMT format.") do |arg|
+  puts "set: --format, arg=#{arg.inspect}"
+end
+parser.on("--help", "print this message and quit.") do
+  puts "set: --help"
+  puts parser.help
+  exit 0
+end
+begin
+  parser.parser!
+  puts "argv = #{ARGV.inspect]"
+resue OptionParser::ParseError => err
+  $stderr.puts err.message
+  $stderr.puts parser.help
+  exit 1
+end
 
-require "date"
-puts Date.parse("M06.01.01")
-puts Date.new(2017, 1, 1).jisx0301
 
+
+p ENV["HOME"]
+ENV["MAILDIR"] = "/home/aamine/Maildir"
+ENV.delete("MAILDIR")
+
+
+class MyClass
+  ...
+end
+
+if __FILE__ == $0
+  ...
+end
+
+>ruby -I./lib -I./arch mycmd.rb
+
+$LOAD_PATH.unshift '/home/takagotch/lib/ruby'
+p $LOAD_PATH
+
+p $LOADED_FEATURES
+
+
+def foo(arg)
+  warn "C#foo isobsolete; use xxxx instead"
+  ..
+end
+
+
+p 5
+p "string\n"
+
+b MyStack.push
+b mystack.rb:5
+
+def get_login_name1
+  ENV["LOGNAME"] || ENV["USER"] || ENV["USERNAME"]
+end
+
+
+require "etc"
+def get_login_name2
+  pw = Etc.getpwuid or return nil
+  pw.name
+end
+
+
+
+require "etc"
+p Etc.getpwnam("test")
+  ###
+p Etc.getwuid(10010)
+  ###
+  
+  
+require "etc"
+Etc.passwd do |pw|
+  p pw
+end
+
+
+require "etc"
+p Etc.getgrnam("test")
+p Etc.getgrgid(103)
+
+
+require "etc"
+Etc.group do |gr|
+  p gr
+end
+
+
+require "etc"
+
+def switch_euid(user)
+  old_uid = Process.euid
+  Process.euid = Etc.getwnam(user).uid
+  yeild
+ensure
+  Process.euid = old_uid
+end
+
+switch_euid("test") do
+  ...
+end
+
+
+
+require "etc"
+
+def switch_uid(user)
+  uid = Etc.getpwnam(user).uid
+  Process::UID.change_privillefe(uid)
+end
+
+switch_uid("test")
+...
+
+
+
+require "etc"
+
+def switch_user(user)
+  Process.fork do
+    pw = Etc.getpwnam(user)
+	Process.initgroups(user, pw.gid)
+	Process::GID.change_privilege(pw.gid)
+	Process::UID.change_privilege(pw.uid)
+	yeild
+  end
+end
+
+pid = switch_user("test") do
+  ...
+end
+Process.waitpid pid
+
+
+
+require "win32/registry"
+
+Win32::Registriy::HKEY_CURRENT_USER\
+    .open('software\Microsoft\Notepad') do |reg|
+  p reg["iWindowposX"]
+  p reg["iWindowposY"]
+end
+
+
+require "win32/registry"
+
+defired = Win32::Registry::KEY_WRITE
+Win32::Registry::HKEY_CURRENT_USER\
+     .open('Software\Microsoft\Notepad', desired) do |reg|
+  reg["iWindowposX"] = 0
+  reg["iWindowposY"] = 0
+end
+
+
+require "dl"
+require "dl/import"
+
+module Libc
+  extend DL::Importable
+  dllaod "libc.so.6"
+  extern "FILE* fopen(char*, class)"
+  extern "int fgetc(FILE*)"
+  extern "int fclose(FILE*)"
+  EOF = -1
+end
+
+def cat(path)
+  fp = Libc.fopen(path, "r")
+  while (c = Libc.fgetc(fp)) != Libc::EOF
+    print c.chr
+  end
+  Libc.fclose(fp)
+end
+
+ARGV.each do |path|
+  cat path
+end
