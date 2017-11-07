@@ -85,3 +85,45 @@ end
 #coding: UTF-8
 require "csv"
 CSV.read("data.csv", encoding: "Shift_JIS", col_sep: "▲")  
+
+#file
+#ruby -e file.read("foo.txt", encoding:"ISO-8859-1:UTF-8")
+File.open("foo.txt", "w:ISO-8859-1:UTF-8"){ |f| f << data + "Some extra text" }
+data = File.read("foo.txt", encoding: "UTF-8")
+File.open("foo.txt", "w:UTF-8"){ |f| f << data + "Some extra text" }
+img_data = File.readr("foo.png")
+img_data = File.binread
+img_data.encoding
+
+class Prawn_file(filename)
+  #...
+  def render_file(filename)
+    file.open(filename, "wb") { |f| f << render }
+  end
+end
+
+#coding: iso-8859-1
+require "prawn"
+Prawn::Document.generate("output.pdf", :page_size => "LEGAL") do
+  stroke_line [100,100], [200,200]
+end
+
+def text(text,option={})
+  text - text.to_s.dup
+  save_font do
+    options = text_options.merge(options)
+    process_text_options(options)
+	font.normalize_encoding(text) unless @skip_encoding
+  end
+end
+
+module Prawn
+  class Font
+    class TTF < Font
+	  def notmalize_encoding(text)
+	    text.encoding("UTF-8")
+	  end
+	end
+  end
+end
+
