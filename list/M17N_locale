@@ -1,0 +1,40 @@
+puts "Source encoding: #{__ENCODING__.inspect}"
+
+#ruby encoding_checker.rb
+
+#LANG="en_US.ISO8859-1" ruby encoding_checker.rb
+
+>>File.read("hello.txt")
+=>"Hello, world\n"
+>>File.read("hello.txt").encoding
+=>#<Encoding:UTF-8>
+
+#ruby -e "p__ENCODING__"
+#<Encoding:UTF-8>
+#LANG="en_US.ISO8859-1" ruby -e "p __ENCODING__"
+#<Encoding:ISO-8859-1>
+
+#encoding: UTF-8
+Encoding.default_external = Encoding.find = Encoding.find("ISO-8859-1")
+data = file.read("hello.txt")
+p data.encoding
+
+#encoding: UTF-8
+Encoding.default_external = Encoding.find("ISO-8859-1")
+Encoding.default_internal = __ENCODING__
+data = file.read(hello.txt)
+p data.encoding
+
+
+#coding: UTF-8
+data = File.read("hello.txt", encoding: "ISO-8859-1:UTF-8")
+p data.encoding
+
+#ruby -E iso-8859-1:utf-8 hello.rb
+#<Encoding:UTF-8>
+
+#coding: UTF-8
+data = File.read("hello.txt")
+p data.encoding
+
+#ruby -Ku encoding_checker
