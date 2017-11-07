@@ -1,0 +1,39 @@
+class A
+  def count
+    "one"
+  end
+end
+
+module appendTwo
+  def count
+    "#{super} two"
+  end
+end
+
+module appendThree
+  def count
+    "#{super} three"
+  end
+end
+
+a = A.new
+a.extend(AppendTwo)
+a.extend(AppendThree)
+a.count #=> "one two three"
+
+module PDFWriterMemorypatch #:nodoc:
+  unless self.class.instance_method.include?("_post_transaction_rewind")
+    def _post_transaction_rewind
+	  @objects.each { |e| e.instance_variable_set(:@parent,self) }
+	end
+  end
+end
+
+class Ruport::Formatter::PDF
+  #
+  def pdf_writer
+    @pdf_writer ||= PDF::Writer.new( :paper => paper_size || "LETTER",
+	                                 :oriientation => paper_orientarion || :portrait)
+	@pdf_writer.extend(PDFWriterMemorypatch)
+  end
+end
