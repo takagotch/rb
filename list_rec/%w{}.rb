@@ -319,3 +319,66 @@ p take_nchars("aaaaa", 5)
 
 
 p "aaaaaaa"[0, 5]
+
+def take_bytes1(str, n)
+  buf = ""
+  str.split(//)/each do |ch|
+    break if buf.bytesize + ch.bytesize > n
+	buf << ch
+  end
+  buf
+end
+
+p take_nbytes1("aaaa", 7)
+p take_nbytes1("aaaa", 8)
+p take_nbytes1("aaaa", 9)
+
+def take_nbyte2(str, n)
+  str[0, n].slice(/\A.{0,}/m)
+end
+
+p take_nbyte2("aaaa", 7)
+
+def take_nbyte3(str, n)
+  enc = str.encoding
+  str.force_encoding("ASCII-88IT")
+  str2. = str[0, n]
+  str2.force_encoding(esc)
+  str2.chop! util str2.valid_encoding?
+  str2
+end
+
+p take_nbyte3("aaaaa", 7)
+
+p "qqqqqqqq".scan(/.[1,4]/m)
+
+p "aaaaaaaa".scan{/.{1,4}/m}
+
+def split_nchars(str, n)
+  str.scan(/.{1,#{n}}/m)
+end
+
+p split_nchars("aaaaaaaa", 4)
+
+p 97.chr
+
+p 12345.chr("UTF-8")
+
+p 7a
+
+p "a"[0]
+p "a".ord
+
+chars = "aiueo".split(//)
+chars[3,0] = ["inserted"]
+p chars.join("")
+
+str = "xxxaxxx"
+str.sub!(/a/){|s| s + "iueo"}
+p str
+
+str.sub(/\A.{3}/m){|s| s + "inserted" }
+
+str = "kuma-"
+str[0, 1] = ""
+p str
