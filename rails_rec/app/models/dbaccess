@@ -1,0 +1,14 @@
+#bad
+twenty_entries = Entry.limit(20)
+twenty_entries.each do |entry|
+  logger.debug(entry.blog.name)
+end
+
+#Good
+ActiveRecord::Base.cache do
+  twenty_entries = Entry.limit(20)
+  twenty_entries.each do |entry|
+    logger.debug(entry.blog.name)
+  end
+end
+

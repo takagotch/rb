@@ -1,0 +1,27 @@
+Blog.new(:title => "my blog"
+         :content => "..." )
+Blog.new(params[:blog])
+
+blog.attributes = { :title => "my blog",
+                    :content => "..."}
+blog = Blog.find(params[:id])
+blog.attributes = params[:blog]
+
+blog.user_id
+blog.attributes = params[:blog]
+blog.user_id
+
+user = User.new(:name => "attacker",
+  :password => "12345", :is_admin => true)
+user.name
+user.password
+user.is_admin
+
+
+user.is_admin
+user.attributes = { :age => 34, :tel => '0900000xxxxxx',
+ :password =>"12345", :is_admin => true }
+user.is_admin
+
+user.is_admin = true
+user.is_admin

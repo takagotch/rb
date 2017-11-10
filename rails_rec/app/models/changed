@@ -1,0 +1,11 @@
+book = Book.first
+book.changed?
+
+book.title
+book.title = "text"
+book.changed?
+
+book.title_changed?
+book.price_changed?
+
+book.title_was

@@ -1,0 +1,12 @@
+takagotch = User.new(:name=>"alice", :email=>"takagotch@example.com")
+
+an_address = Address.new("123-0456", "Osaka", "kitaku - oofukatyo")
+
+takagotch.address = an_address
+takagotch.address_zip
+takagotch.address_prefecture
+takagotch.address_city
+
+takagotch.save
+saved_address = takagotch.reload.address
+saved_address.prefecture

@@ -1,0 +1,63 @@
+class User < ActiveRecord::Base
+  MAX_IMAGE_SIZE = 500
+  validate :profile_url_is_valid, :profile_image_is_not_too_big
+  
+  private
+  
+  def profile_url_is_valid
+    valid = begin
+	  URI.parse(self.progile_site_url).scheme == "http"
+	rescue URI::InvalidURIError
+	  false
+    end
+	
+	unless valid
+	  errors.add(:profile_site_url, "text")
+	end
+  end
+  
+    unless valid
+      errors.add(:profile_site_url, "text")
+    end
+  end
+  
+  def profile_image_is_not_too_big
+    if self.profile_image.bytesize > MAX_IMAGE_SIZE.kilobytes
+	  errors.add(:profile_image,
+	  ("text" % MAX_IMAGE_SIZE))
+	end
+  end
+end
+
+
+  entry_with_content = Entry.new(:content => "text")
+  entry_with_content.save
+  entry_with_content.new_record?
+  
+  entry_without_content = Entry.new
+  entry_without_content.save
+  entry_without_content.new_record?
+  
+  entry_with_content = Entry.new(:content => "text")
+  entry_with_content.valid?
+  entry_with_content.new_record?
+  
+  entry_without_content = Entry.new
+  entry_without_content.valid?
+  entry_withour_content.new_record?
+  
+  entry_without_content = Entry.new
+  entry_without_content.valid?
+  entry_without_content.errors
+  
+  entry_without_content.errors.each do |attribute, error|
+    puts "#{attribute} have errors '#{error.to_s}'."
+  end
+  
+  entry_without_content.errors.full_messages
+  
+  entry_without_content.errors.count
+  
+  entry = Entry.new
+  entry.save
+  entry.save :validate => false

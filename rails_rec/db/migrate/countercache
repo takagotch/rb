@@ -1,0 +1,3 @@
+blog.entries.length
+blog.entries.size
+blog.entries.empty?

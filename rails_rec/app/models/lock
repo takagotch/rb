@@ -1,0 +1,12 @@
+entry_1 = Entry.find(1)
+entry_1.title = "text(1)"
+puts entry_1.content
+
+entry_2 = Entry.find(2)
+entry_2.content = "text"
+entry_2.save
+
+puts Entry.find(1).content
+
+entry_1.save
+puts Entry.find(1).content

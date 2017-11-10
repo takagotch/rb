@@ -1,0 +1,12 @@
+entry_1 = Entry.find(1)
+entry_1.title = "text(1)"
+
+entry_2 = Entry.find(1)
+entry_2.save
+
+entry_1.save
+
+locked_entry = Entry.find(1, :lock => true)
+
+locked_entry = Entry.find(1)
+locked_entry.lock!

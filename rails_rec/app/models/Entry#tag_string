@@ -1,0 +1,5 @@
+entry = Entry.new(
+  :title => "text",
+  :content => "text",
+  :tag_string => "text")
+entry.tags
