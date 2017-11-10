@@ -10,4 +10,6 @@ class Blog < AcrionRecord::Base
   
   has_many :entries
   has_one :attachment_image, :as => :attachable
+  
+  :comments, :through => :entries
 end

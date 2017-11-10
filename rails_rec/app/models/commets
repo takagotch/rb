@@ -1,0 +1,6 @@
+blog = Blog.first
+blog.comments.each do |comment|
+  puts comments.content
+end
+
+has_many :notes, :through => :blogs, :source => :comments

@@ -46,4 +46,11 @@ class Entry < ActiveRecord::Base
   belongs_to :blog
   has_many :attachment_images, :as => :attachable
   
+  has_many :categorizations
+  has_many :entries, :through => :categorizations
+  
+  has_many :comments
+  
+  
+  
 end

@@ -58,4 +58,11 @@ class User < ActiveRecord::Base
   
   has_one :blog  
   
+  has_one :blog
+  has_many :comments, :through => :blog
+  
+  has_one :user
+  has_one :account, :through => :user
+  
+  has_one :blog
 end

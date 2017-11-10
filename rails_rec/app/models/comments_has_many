@@ -1,0 +1,3 @@
+User.first.comments.each do |comment|
+  puts comments.content
+end
