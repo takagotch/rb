@@ -1,0 +1,25 @@
+blog = Blog.find(1)
+image = AttachmentImage.create(:content => File.read("someimage.jpg"))
+blog.attachment_image = image
+
+image.attachment_type
+image.attachable_id
+
+image.reload.attachable == blog
+
+entry = Entry.find(5)
+an_image = AttachmentImage.create(:content => File.read("another.png"))
+
+an_image.attachable_type
+an_image.attachable_id
+
+entry.reload
+entry.attachment_image.count
+
+other_image =
+  AttachmentImage.create(:content => File.read("other.gif"))
+other_image.attachable = entry
+other_image.save
+
+entry.reload
+entry.attachmant_image.count

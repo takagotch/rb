@@ -7,7 +7,4 @@ class Blog < AcrionRecord::Base
   
   has_many :categorizations
   has_many :categories, :through => :categorizations
-  
-  has_many :entries
-  has_one :attachment_image, :as => :attachable
 end

@@ -42,4 +42,8 @@ class Entry < ActiveRecord::Base
     connection.exevute("SELECT" * FROM entries")
   end
   #...
+  
+  belongs_to :blog
+  has_many :attachment_images, :as => :attachable
+  
 end
