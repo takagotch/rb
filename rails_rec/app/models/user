@@ -1,0 +1,11 @@
+user.blog = blog
+user.save
+
+blog.entries
+blog.save
+
+entry.categories << categories
+entry.save
+
+entry.categorization.create(:category => category)
+entriy.save

@@ -1,0 +1,11 @@
+User.average(:age)
+
+User.where("create_at < ?", 1.year.ago).minimum(:age)
+
+Article.group(:blog_id).count(:id)
+
+
+Entry.count
+
+@a_takagotch = Author.find_by_name! "a_takagotch"
+@a_takagotch.entries.count

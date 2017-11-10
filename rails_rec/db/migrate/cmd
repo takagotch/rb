@@ -1,1 +1,19 @@
 rails c
+
+
+ActiveRecord::Base.logger = Logger.new(stream)
+User.find 1
+User.all
+
+require "pp"
+pp User.all
+
+y User.first.attributes
+reload!
+
+User.scoped
+User.scoped.class
+
+u = User.where('name like ?', 'M%'); nil
+u = u.where('age > 20'); nil
+u.count

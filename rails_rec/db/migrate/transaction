@@ -1,0 +1,22 @@
+user = User.new(:username => "me")
+blog = Blog.new(:user => user, :name => "text")
+ActiveRecord::Base.transaction do
+  user.save!
+  blog.save!
+end
+
+
+Account.transaction do
+  accounts.each do |account|
+    account.calculate
+	account.save!
+  end
+end
+
+
+User.transaction do
+  Blog.transaction do
+    user.save!
+	blog.save!
+  end
+end

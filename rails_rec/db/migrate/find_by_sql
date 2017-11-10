@@ -1,0 +1,30 @@
+Entry.find_by_sql("SELECT" * FROM entries LIMIT 10")
+
+Entry.find_by_sql(
+  ["SELECT * FROM entries WHERE entries.blog_id = ? LIMIT 10", 1])
+
+Entry.find_by_sql([<<-SQL, {:blog_id => 1}])
+  SELECT *
+  FROM entries
+  WHERE entries.blog_id = :blog_id
+  LIMIT 10
+SQL
+
+entry = Entry.first
+puts entry.short_summery
+
+SELECT
+  entries.id,
+  entries.content,
+  SUBSTR(entries.content, 0, 10) AS short_summery
+...
+
+
+User,acerage(:age)
+User.where("created_at < ?", 1.year.ago).minimum(:age)
+Article.group(:blog_id).count(:id)
+
+
+Entry.count
+@takagotch = Author.find_by_name!
+@takagotch.entries.count
