@@ -1,0 +1,6 @@
+bundle install
+
+rails g uploader Picture
+
+rails g migration add_picture_to_microposts picture:string
+rails db:migrate

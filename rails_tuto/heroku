@@ -1,0 +1,10 @@
+heroku config:set S3_ACCESS_KEY="XXXX"
+heroku config:set S3_SECRET_KEY="XXXX"
+heroku config:set S3_BUKET="XXXX"
+heroku config:set S3_REGION="XXXX"
+
+
+git push heroku
+heroku pg:reset DATABASE
+heroku run rails db:migrate
+heroku run rails db:seed

@@ -1,0 +1,1 @@
+rails g integration_test users_profile
