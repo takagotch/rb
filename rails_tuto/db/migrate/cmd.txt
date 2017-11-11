@@ -5,3 +5,10 @@ rails db:migrate:reset
 rails db:seed
 
 rails g controller Microposts
+
+rails db:migrate
+rails console --sandbox
+user = User.first
+user.admin?
+user.toggle!(:admin)
+user.admin?
