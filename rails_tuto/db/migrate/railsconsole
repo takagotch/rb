@@ -1,0 +1,13 @@
+rails console
+
+User.create(name: "takagotch", email: "takagotch@outlook.com",
+?>          password: "foobar", password_confirmation: "foobar")
+
+user = User.find_by(email: "takagotch@outlook.com")
+user.password_digest
+
+user.authenticate("not_the_right_password")
+user.authenticate("foobaz")
+user.authenticate("foobar")
+
+!!user.authenticate("foobar")
