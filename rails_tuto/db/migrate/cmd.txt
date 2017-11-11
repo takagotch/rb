@@ -1,2 +1,7 @@
 rails db:migrate
 rails console
+
+rails db:migrate:reset
+rails db:seed
+
+rails g controller Microposts
