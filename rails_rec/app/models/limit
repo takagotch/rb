@@ -1,0 +1,3 @@
+Entry.order(:created_at).limit(30)
+
+Entry.order(:created_at).limit(10).offset(20)

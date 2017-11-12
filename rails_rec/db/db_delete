@@ -1,0 +1,11 @@
+entry = Entry.first
+entry.frozen?
+entry.destroy
+entry.frozen?
+
+Entry.destroy([1, 2])
+Entry.where("created_at < ?", 1.year.ago).destroy_all
+
+Entry.delete(1)
+Entry.delete([2, 3])
+Entry.where("created_at < ?", 1.year.ago).delete_all

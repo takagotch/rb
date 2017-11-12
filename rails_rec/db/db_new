@@ -1,0 +1,10 @@
+entry = Entry.new
+
+entry = Entry.new(:title => "Hello!", :content => "text!")
+entry.title
+entry.content
+
+my_blog = Blog.find(1)
+entry = my_blog.entries.build(:content => "text")
+entry.blog_id
+entry.blog_id

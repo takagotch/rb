@@ -1,0 +1,23 @@
+if @entry.save
+  redirect_to entries_path
+else
+  render :action => "new"
+end
+
+
+begin
+  Entry.transaction do
+    @many_entries.each {|entry| entry.save!}
+  end
+  redirect_to entries_path
+rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
+  render :action => "input_multi_entries"
+end
+
+entry = Entry.new(:content => "text", :blog_id => 1)
+entry.new_record?
+
+entry = Entry.create(:content => "text", :blog_id => 1)
+entry.new_record?
+
+entry = Entry.create!(:blog_id => 1)

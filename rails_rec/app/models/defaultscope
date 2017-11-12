@@ -1,0 +1,2 @@
+Book.first
+#SELECT * FROM books WHERE published = 't' LIMIT 1

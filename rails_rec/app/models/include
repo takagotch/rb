@@ -1,0 +1,17 @@
+twenty_books = Book.order('published_at').limit(20).includes(:author)
+twenty_books.each do |book|
+  logger.dubug(book.author.name)
+end
+
+  SELECT * FROM books ORDER BY published_at LIMIT 20;
+  SELECT * FROM authors WHERE authors.id IN (1, 2, 3 ...)
+  
+  
+twenty_books = Book.order('published_at').limit(20).joins(
+                          :author).includes(:author)
+twenty_books.each do |book|
+  logger.debug(book.author.name)
+end
+
+  authors.id = books.author_id ORDER BY published_at LIMIT 20;
+  SELECT author.* FROM authors WHERE authors.id IN (1,2,3 ...)

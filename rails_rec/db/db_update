@@ -1,0 +1,19 @@
+entry = Entry.find(params[:id])
+entry.content = "new content"
+entry.save
+
+entry = Entry.find(params[:id])
+entry.attributes = {:title => "new title", :content => "new content"}
+entry.save
+
+entry.update_attribute(:content, "new content")
+
+new_attrs = {:title => "new title", :content => "new content"}
+entry.update_attributes(new_attrs)
+entry.update_attributes!(new_attrs)
+
+Entry.update(1, :content => "new content")
+
+Entry.where("updated_at < ?", 1.day.ago).update_all(
+  :updated_at => Time.now)
+  WHERE (update_at < '2017-11-12 11:11:11')

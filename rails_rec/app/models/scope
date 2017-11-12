@@ -1,0 +1,13 @@
+Book.joins(:author).where('price > 30').merge(Author.where(:sex => 'F'))
+  books.author_id WHERE authors.sex = 'F' AND (price > 30)
+  
+Book.expensive.joins(:author).merge(Author.female)
+
+
+Book.titled("text")
+
+
+Author.adult.lives_in("Japan").where(:first_name => "takagotch")
+
+author = Author.first_name
+author.books.chapter_than(4000)

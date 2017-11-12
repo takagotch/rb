@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  scope ;adult, where("age >= 20")
   composed_of :address,
     :mapping=>[["address_zip", "zip"],
 	["address_prefecture", "prefecture"],

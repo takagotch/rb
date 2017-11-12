@@ -1,0 +1,11 @@
+Entry.order("created_at")
+
+Entry.order("updated_at DESC").first
+
+Entry.order("page_view_count DESC, updated_at ASC")
+
+Entry.order("page_view_count desc").order("updated_at")
+
+Entry.order("page_view_count DESC").reorder("updated_at ASC")
+
+Entry.order("page_view_count DESC").order("updated_at ASC").reorder(nil)

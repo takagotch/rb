@@ -1,0 +1,8 @@
+blog = Blog.last
+puts blog.name
+
+blog.name
+puts blog.name
+
+blog.reload
+puts blog.name

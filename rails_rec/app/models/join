@@ -1,0 +1,15 @@
+Blog.joins(:entries)
+  entries.blog_id = blog.id
+
+entries = Entry.joins(:category).where(
+               :categories => {:name => "ruby" })
+entries = Entry.joins(:blog).where("blogs.name LIKE ?", "%me%")
+
+Entry.joins(:blog, :categories)
+
+Entry.joins(:blog => :user).where(:users => {:name => 'Matz'})
+  blogs.id = entries.blog_id INNER JOIN users ON
+  users.id = blogs.user_id WHERE users.name = 'Matz'
+  
+Blog.joins("LEFT OUTER JOIN entries ON blogs.id = entries.blog_id")
+  blogs.id = entries.blog_id

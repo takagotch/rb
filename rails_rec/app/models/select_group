@@ -1,0 +1,7 @@
+Blog.select("id")
+
+entry= Entry.select("id, SUBSTR(content, 0, 10) AS short_summary")
+puts entry.short_summary
+
+Blog.select("category_id, sum(page_view_count)").group("category_id")
+  GROUP BY category_id

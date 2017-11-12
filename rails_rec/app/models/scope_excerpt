@@ -1,0 +1,16 @@
+books = Book.where(:price => 1000).order('created_at')
+books.excert(:order)
+
+Book.where(:price => 1000).order('created_at').excert(:where, :order)
+
+class Book < ActiveRecord::Base
+  default_scope :order => 'created_at'
+end
+
+Book.excert(:order)
+
+class Book < ActiveRecord::Base
+  default_scope :order => 'created_at'
+end
+
+Book.unscoped { Book.all }
