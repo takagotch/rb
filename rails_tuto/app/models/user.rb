@@ -11,7 +11,7 @@ class User < ApplicationRecord
   
   attr_accessor :remember_token, :activation_token, :reset_token
 
-  before_save { self.email = email.downcase }
+  before_save { self.email = email.downcase } #before_save { email.downcase! }
   before_create :create_activation_digest
   
   validates :name, presence: true, length: { maxinum: 50 }
@@ -20,7 +20,7 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },
 					uniqueness: { case_sensitive: false }
   has_secure_password
-  validates :password, presence:true, length: { minimum: 6 }, allow_nil: true
+  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   
   class << self
   #def User.digest(string)
