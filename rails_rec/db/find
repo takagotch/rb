@@ -1,0 +1,13 @@
+blog = Blog.find(1)
+
+blog = Blog.find("1")
+
+blogs = Blog.find(1, 2, 3)
+
+blogs = Blog.find([1, 2, 3])
+
+blog = Blog.first
+
+blog = Blog.last
+
+blogs = Blog.all

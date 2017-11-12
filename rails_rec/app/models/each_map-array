@@ -1,0 +1,23 @@
+entries = Blog.find_by_name("text").entries
+
+entries.each do |entries|
+  puts entry.title
+end
+
+Entry.joins(:category).where(:categories => {:name => "takagotch"}).order(
+  "updated_at DESC").limit(5).offset(25)
+  
+
+entries = Blog.find_by_name("text").entries
+if params[:published]
+  entries = entries.where(:published => true)
+end
+puts entries.count
+
+Book.scoped
+
+Book.scoped.each do |book|
+  puts book.name
+end
+
+puts Book.sciped.to_sql

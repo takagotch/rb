@@ -1,0 +1,4 @@
+t.references "blog", :null => false
+
+t.references "attachable",
+             :polymorphic => true, :null => false, :default => 0
